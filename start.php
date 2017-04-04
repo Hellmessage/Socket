@@ -13,11 +13,12 @@ function handle_connection($connection){
 // 当客户端发送消息过来时，转发给所有人
 function handle_message($connection, $data){
   $Json = json_decode($data);
-  if($Json->type == "login"){
-    $connection->lid = 0;
-  }else{
-    $connection->lid = 1;
-  }
+  $connection->lid = $Json->type;
+  // if($Json->type == "login"){
+  //
+  // }else{
+  //   $connection->lid = 1;
+  // }
   global $text_worker;
   foreach($text_worker->connections as $conn){
     $List['uid'] = $connection->uid;
