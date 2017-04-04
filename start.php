@@ -22,6 +22,7 @@ function handle_message($connection, $data){
   foreach($text_worker->connections as $conn){
     $List['uid'] = $connection->uid;
     $List['lid'] = $connection->lid;
+    $List['data'] = $Json;
     $conn->send(json_encode($List));
   }
 }
