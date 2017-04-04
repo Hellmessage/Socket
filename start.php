@@ -39,7 +39,5 @@ $text_worker->count = 1;
 $text_worker->onConnect = 'handle_connection';
 $text_worker->onMessage = 'handle_message';
 $text_worker->onClose = 'handle_close';
-
 Worker::runAll();
-
 ?>
