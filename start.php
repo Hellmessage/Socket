@@ -14,7 +14,7 @@ function handle_connection($connection){
 function handle_message($connection, $data){
   $Json = json_decode($data);
   $type = $Json->type;
-  if($type == "Login"){
+  if($type == 1){
     $connection->lid = $Json->lid;
   }
   global $text_worker;
