@@ -16,21 +16,32 @@ function handle_message($connection, $data){
   $lid = $Json->lid;
   if($type == 1){
     $connection->lid = $lid;
+    $JsonData['ttype'] = $type;
+  }else{
+    $JsonData['ttype'] = $type;
+    $JsonData['nickname'] = $Json->user->nickname;
+    $JsonData['uimg'] = $Json->user->img;
+    $JsonData['bbb'] = $Json->user->bbb;
+    $JsonData['name'] = $Json->gift->name;
+    $JsonData['type'] = $Json->gift->type;
+    $JsonData['img'] = $Json->gift->img;
+    $JsonData['title'] = $Json->gift->title;
+    $JsonData['money'] = $Json->gift->money;
   }
-  $JsonData = json_encode(json_encode($Json));
+  $Data = json_encode($JsonData);
   global $text_worker;
   foreach($text_worker->connections as $conn){
     if($type != 1){
       if($connection->lid == $lid){
         $List['uid'] = $connection->uid;
         $List['lid'] = $connection->lid;
-        $List['data'] = $JsonData;
+        $List['data'] = $Data;
         $conn->send(json_encode($List));
       }
     }else{
       $List['uid'] = $connection->uid;
       $List['lid'] = $connection->lid;
-      $List['data'] = $JsonData;
+      $List['data'] = $Data;
       $conn->send(json_encode($List));
     }
   }
