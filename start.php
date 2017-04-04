@@ -17,7 +17,7 @@ function handle_message($connection, $data){
   if($type == 1){
     $connection->lid = $lid;
   }
-  $JsonData = json_encode($data);
+  $JsonData = json_encode($Json);
   global $text_worker;
   foreach($text_worker->connections as $conn){
     if($type != 1){
