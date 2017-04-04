@@ -28,7 +28,8 @@ function handle_message($connection, $data){
     $JsonData['title'] = $Json->gift->title;
     $JsonData['money'] = $Json->gift->money;
   }
-  $Data = json_encode($JsonData);
+  $arr[] = $JsonData;
+  $Data = json_encode($array);
   global $text_worker;
   foreach($text_worker->connections as $conn){
     if($type != 1){
