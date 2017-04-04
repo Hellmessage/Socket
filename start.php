@@ -13,15 +13,26 @@ function handle_connection($connection){
 function handle_message($connection, $data){
   $Json = json_decode($data);
   $type = $Json->type;
+  $lid = $Json->lid;
   if($type == 1){
-    $connection->lid = $Json->lid;
+    $connection->lid = $lid;
   }
+  $JsonData = json_encode($data);
   global $text_worker;
   foreach($text_worker->connections as $conn){
-    $List['uid'] = $connection->uid;
-    $List['lid'] = $connection->lid;
-    $List['data'] = $type;
-    $conn->send(json_encode($List));
+    if($type != 1){
+      if($connection->lid == $lid){
+        $List['uid'] = $connection->uid;
+        $List['lid'] = $connection->lid;
+        $List['data'] = $JsonData;
+        $conn->send(json_encode($List));
+      }
+    }else{
+      $List['uid'] = $connection->uid;
+      $List['lid'] = $connection->lid;
+      $List['data'] = $JsonData;
+      $conn->send(json_encode($List));
+    }
   }
 }
 // 当客户端断开时，广播给所有客户端
