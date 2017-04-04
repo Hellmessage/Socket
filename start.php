@@ -17,7 +17,7 @@ function handle_message($connection, $data){
   global $text_worker;
   foreach($text_worker->connections as $conn){
     $List['uid'] = $connection->uid;
-    $List['lid'] = $connection->lid;
+    $List['lid'] = $Json->lid;
     $List['data'] = $type;
     $conn->send(json_encode($List));
   }
