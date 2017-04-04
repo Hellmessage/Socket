@@ -13,7 +13,9 @@ function handle_connection($connection){
 function handle_message($connection, $data){
   $Json = json_decode($data);
   $type = $Json->type;
-  $connection->lid = $Json->lid;
+  if($type == 1){
+    $connection->lid = $Json->lid;
+  }
   global $text_worker;
   foreach($text_worker->connections as $conn){
     $List['uid'] = $connection->uid;
