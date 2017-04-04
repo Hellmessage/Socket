@@ -20,7 +20,7 @@ function handle_message($connection, $data){
   global $text_worker;
   foreach($text_worker->connections as $conn){
     if($type != 1){
-      if($connection->lid == $lid){
+      if($conn->lid == $lid){
         $List['uid'] = $connection->uid;
         $List['lid'] = $connection->lid;
         $List['data'] = $Json;
