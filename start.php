@@ -34,13 +34,16 @@ function handle_message($connection, $data){
     }
   }
 }
-// 当客户端断开时，广播给所有客户端
-// function handle_close($connection){
-//     global $text_worker;
-//     foreach($text_worker->connections as $conn){
-//         $conn->send("user[{$connection->uid}] logout");
-//     }
-// }
+//当客户端断开时，广播给所有客户端
+function handle_close($connection){
+    global $text_worker;
+    foreach($text_worker->connections as $conn){
+      $lid = $connection->lid;
+      if($conn->lid == $lid){
+        $conn->send(json_encode(array("type" = 3),array("uid" = $connection->uid)));
+      }
+    }
+}
 
 // 创建一个文本协议的Worker监听2347接口
 $text_worker = new Worker("tcp://0.0.0.0:2347");
