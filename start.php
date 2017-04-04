@@ -40,7 +40,7 @@ function handle_close($connection){
     foreach($text_worker->connections as $conn){
       $lid = $connection->lid;
       if($conn->lid == $lid){
-        $conn->send(json_encode(array("type" = 3),array("uid" = $connection->uid)));
+        $conn->send(json_encode(array("type"=>3),array("uid"=>$connection->uid)));
       }
     }
 }
