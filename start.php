@@ -35,12 +35,12 @@ function handle_message($connection, $data){
   }
 }
 // 当客户端断开时，广播给所有客户端
-function handle_close($connection){
-    global $text_worker;
-    foreach($text_worker->connections as $conn){
-        $conn->send("user[{$connection->uid}] logout");
-    }
-}
+// function handle_close($connection){
+//     global $text_worker;
+//     foreach($text_worker->connections as $conn){
+//         $conn->send("user[{$connection->uid}] logout");
+//     }
+// }
 
 // 创建一个文本协议的Worker监听2347接口
 $text_worker = new Worker("tcp://0.0.0.0:2347");
@@ -48,6 +48,6 @@ $text_worker = new Worker("tcp://0.0.0.0:2347");
 $text_worker->count = 1;
 $text_worker->onConnect = 'handle_connection';
 $text_worker->onMessage = 'handle_message';
-$text_worker->onClose = 'handle_close';
+// $text_worker->onClose = 'handle_close';
 Worker::runAll();
 ?>
