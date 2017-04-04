@@ -9,14 +9,11 @@ function handle_connection($connection){
     // 为这个链接分配一个uid
     $connection->uid = ++$global_uid;
 }
-
 // 当客户端发送消息过来时，转发给所有人
 function handle_message($connection, $data){
   $Json = json_decode($data);
   $type = $Json->type;
-  if($type == 1){
-    $connection->lid = $Json->lid;
-  }
+  $connection->lid = $Json->lid;
   global $text_worker;
   foreach($text_worker->connections as $conn){
     $List['uid'] = $connection->uid;
@@ -25,7 +22,6 @@ function handle_message($connection, $data){
     $conn->send(json_encode($List));
   }
 }
-
 // 当客户端断开时，广播给所有客户端
 function handle_close($connection){
     global $text_worker;
